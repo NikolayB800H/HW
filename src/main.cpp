@@ -20,8 +20,8 @@ static int choiceMenu(int cnt, char const **choices) {
 
 static void addFileDialog(FileSystem &fs) {
     std::string name;
-    size_t date = 0;
-    std::cout << ">> Пожалуйста, введите имя и дату создания нового файла:\n<< ";
+    std::string date;
+    std::cout << ">> Пожалуйста, введите имя и дату создания нового файла (YY.MM.DD):\n<< ";
     std::cin >> name >> date;
     fs.add(FileSystem::File(name, date));
 }
@@ -42,8 +42,8 @@ static void touchFileDialog(FileSystem &fs) {
 }
 
 static void deleteFilesDialog(FileSystem &fs) {
-    size_t date = 0;
-    std::cout << ">> Пожалуйста, введите дату устаревания:\n<< ";
+    std::string date;
+    std::cout << ">> Пожалуйста, введите дату устаревания (YY.MM.DD):\n<< ";
     std::cin >> date;
     fs.erase(date);
 }

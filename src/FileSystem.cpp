@@ -25,7 +25,7 @@ FileSystem::File &FileSystem::add(File const &file) {
     return files.back();
 }
 
-void FileSystem::erase(size_t too_old) {
+void FileSystem::erase(std::string const &too_old) {
     for (std::list<File>::iterator i = files.begin(); i != files.end();) {
         if (i->getDate() < too_old) {
             files.erase(i);
@@ -53,10 +53,10 @@ std::ostream &operator<<(std::ostream &os, FileSystem const &file_system) {
     return os;
 }
 
-FileSystem::File::File() : name(""), creation_date(0), touches_count(0) {
+FileSystem::File::File() : name(""), creation_date(""), touches_count(0) {
 }
 
-FileSystem::File::File(std::string const &file_name, size_t creation_date)
+FileSystem::File::File(std::string const &file_name, std::string creation_date)
     : name(file_name)
     , creation_date(creation_date)
     , touches_count(0) {
@@ -69,7 +69,7 @@ std::string const &FileSystem::File::getName() const {
     return name;
 }
 
-size_t FileSystem::File::getDate() const {
+std::string const &FileSystem::File::getDate() const {
     return creation_date;
 }
 
