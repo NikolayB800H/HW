@@ -18,11 +18,31 @@ static int choiceMenu(int cnt, char const **choices) {
     return resp;
 }
 
+static bool formOk(std::string const &date) {
+    if (date.size() != 8 || (date[2] != '.' || date[5] != '.')) {
+        return false;
+    }
+    for (int8_t i = 0; i < 3; ++i) {
+        for (int8_t j = 0; j < 2; ++j) {
+            if (!isdigit(date[i * 3 + j])) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 static void addFileDialog(FileSystem &fs) {
     std::string name;
     std::string date;
-    std::cout << ">> Пожалуйста, введите имя и дату создания нового файла (YY.MM.DD):\n<< ";
-    std::cin >> name >> date;
+    std::cout << ">> Пожалуйста, введите имя создания нового файла:\n<< ";
+    getline(std::cin, name, '\n');
+    std::cout << ">> Теперь введите дату (YY.MM.DD):\n<< ";
+    std::cin >> date;
+    if (!formOk(date)) {
+        std::cout << ">> Формат введённой даты ошибочен, отмена операции.\n";
+        return;
+    }
     fs.add(FileSystem::File(name, date));
 }
 
